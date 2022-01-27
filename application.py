@@ -4,19 +4,7 @@ import traceback
 from constants.error_lib import BackEndException
 from api import create_app, socketio
 
-
-import os
-import boto3
-from constants.error_lib import BackEndException, ErrorCodes, ErrorMessages
-
-
-dynamodb_table.put_item(
-        Item={
-            "message":'message_content'
-        }
-    )
 application = create_app()
-
 
 @application.route('/', methods=['GET'])
 def home():
