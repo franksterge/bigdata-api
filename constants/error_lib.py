@@ -33,6 +33,7 @@ class ErrorCodes:
     OK = 200
     USER_CREATED = 201
     EMPTY_CONTENT = 204
+    NOT_CHANGED = 304
     BAD_REQUEST = 400
     UNAUTHORIZED = 401
     FORBIDDEN = 403
@@ -63,6 +64,8 @@ class ErrorMessages:
     SUCCESS = 'success'
     BAD_DATA = 'The given data from the request contains invalid data field(s) or some data fields required are missing'
     VALIDATION_FAILED = 'The given data from the request does not pass validation'
+    CONTENT_NOT_CHANGED = 'The given data from the request has not changed from the previous call'
+
     UNABLE_DELETE = 'Unable to delete this file at this time. Please try again.'
     INVALID_FILE = 'This file name is invalid'
     PLAN_NOT_FOUND = 'Given plan not found'
