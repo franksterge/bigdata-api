@@ -62,6 +62,7 @@ class ErrorMessages:
 
     SUCCESS = 'success'
     BAD_DATA = 'The given data from the request contains invalid data field(s) or some data fields required are missing'
+    VALIDATION_FAILED = 'The given data from the request does not pass validation'
     UNABLE_DELETE = 'Unable to delete this file at this time. Please try again.'
     INVALID_FILE = 'This file name is invalid'
     PLAN_NOT_FOUND = 'Given plan not found'
