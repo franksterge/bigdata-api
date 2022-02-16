@@ -70,6 +70,7 @@ class ErrorMessages:
     INVALID_FILE = 'This file name is invalid'
     PLAN_NOT_FOUND = 'Given plan not found'
     SERVICE_NOT_FOUND = 'Given service not found'
+    MEMBER_COST_SHARE_NOT_FOND = 'Given member cost share not found'
 
     UNABLE_UPLOAD_IMAGE = 'Unable to upload image. Please try again'
     BOOK_ALREADY_EXISTS = 'This book is already created by someone.'

@@ -72,5 +72,8 @@ class PlanFunctionalService:
 
     def delete_plan(self, object_id):
         plan = self.plan_storage_service.get_plan(plan_id=object_id)
-        if plan is not None:
-            self.plan_storage_service.delete_dynamo_data(object_type=Plan.partition_key, object_id=object_id)
+        if plan is None:
+            raise BackEndException(
+                ErrorMessages.PLAN_NOT_FOUND,
+                ErrorCodes.NOT_FOUND)
+        self.plan_storage_service.delete_dynamo_data(object_type=Plan.partition_key, object_id=object_id)

@@ -16,6 +16,6 @@ class MemberCostShareStorageService(BaseDynamoService):
         response = self.get_dynamo_data(MemberCostShare.partition_key, object_id)
         if response is None:
             raise BackEndException(
-                ErrorMessages.SERVICE_NOT_FOUND,
+                ErrorMessages.MEMBER_COST_SHARE_NOT_FOND,
                 ErrorCodes.NOT_FOUND)
         return MemberCostShare.from_dynamo(response[DynamoKeys.CONTENT])

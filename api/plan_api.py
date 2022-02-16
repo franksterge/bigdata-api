@@ -31,6 +31,7 @@ def get_plan(plan_id):
         for etag in etag_cache:
             if current_etags.contains(etag):
                 raise BackEndException(ErrorMessages.CONTENT_NOT_CHANGED, ErrorCodes.NOT_CHANGED)
+
     plan_obj = plan_service.get_plan(plan_id)
     response = Response(status=ErrorCodes.OK, response=json.dumps(plan_obj.to_json(), cls=DecimalEncoder), mimetype='application/json')
     response.add_etag()
