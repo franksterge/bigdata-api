@@ -10,10 +10,8 @@ class MedicalService(BaseDynamoModel):
 
     @classmethod
     def from_json(cls, json_data):
-        json_data[MedicalServiceKeys.OBJECT_ID] = json_data[JsonMedicalServiceKeys.OBJECT_ID]
-        json_data[MedicalServiceKeys.OBJECT_TYPE] = json_data[JsonMedicalServiceKeys.OBJECT_TYPE]
-        json_data[MedicalServiceKeys.ORG] = json_data[JsonMedicalServiceKeys.ORG]
-        return cls(**json_data)
+        formatted_json = super().from_json(json_data=json_data)
+        return cls(**formatted_json)
 
     @classmethod
     def from_dynamo(cls, dynamo_object):
@@ -32,7 +30,7 @@ class MedicalService(BaseDynamoModel):
                  name=None,
                  org=None):
         self.object_id = object_id or uuid.uuid4().hex
-        self.object_type = object_type
+        self.object_type = MedicalService.partition_key
         self.name = name
         self.org = org
 
@@ -40,6 +38,14 @@ class MedicalService(BaseDynamoModel):
         return {
             MedicalServiceKeys.PARTITION_KEY: self.object_type,
             MedicalServiceKeys.SORT_KEY: self.object_id,
+            MedicalServiceKeys.NAME: self.name,
+            MedicalServiceKeys.ORG: self.org,
+        }
+
+    def to_dict(self):
+        return {
+            MedicalServiceKeys.OBJECT_TYPE: JsonMedicalServiceKeys.OBJECT_TYPE_OUT,
+            MedicalServiceKeys.OBJECT_ID: self.object_id,
             MedicalServiceKeys.NAME: self.name,
             MedicalServiceKeys.ORG: self.org,
         }

@@ -1,6 +1,7 @@
 import os
 import boto3
 from constants.error_lib import BackEndException, ErrorCodes, ErrorMessages
+from storage_service.base_dynamo_service import BaseDynamoService
 
 dynamodb_table_name = os.getenv('DYNAMODB_TABLE_NAME', 'info7255')
 region_name = os.getenv('REGION_NAME', 'us-east-2')
@@ -16,4 +17,6 @@ dynamodb = boto3.resource("dynamodb",
                           aws_secret_access_key=aws_secret_key,
                           region_name=region_name)
 dynamodb_table = dynamodb.Table(dynamodb_table_name)
+
+base_dynamo_service = BaseDynamoService(dynamo_table=dynamodb_table)
 

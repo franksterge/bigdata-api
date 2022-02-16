@@ -1,9 +1,11 @@
 """
 : Base Dynamo model.
 """
-
 import json
 import decimal
+import uuid
+from constants.json_constants import JsonBaseModelKeys
+from constants.constants import BaseModelKeys
 
 
 class BaseDynamoModel:
@@ -12,36 +14,35 @@ class BaseDynamoModel:
     def from_json(cls, json_data):
         """
         : Converts json dictionary to BaseDynamoModel.
+        : TODO: CHANGE BEHAVIOR OF OBJECT_TYPE
         """
-        return cls(**json_data)
+        json_data[BaseModelKeys.OBJECT_ID] = json_data[JsonBaseModelKeys.OBJECT_ID]
+        json_data[BaseModelKeys.OBJECT_TYPE] = json_data[JsonBaseModelKeys.OBJECT_TYPE]
+        json_data[BaseModelKeys.ORG] = json_data[JsonBaseModelKeys.ORG]
+        del json_data[JsonBaseModelKeys.OBJECT_ID]
+        del json_data[JsonBaseModelKeys.OBJECT_TYPE]
+        del json_data[JsonBaseModelKeys.ORG]
+        return json_data
 
     def to_json(self):
         """
         : Returns the dictionary representation of this object
         : as a JSON string.
         """
-        return json.dumps(
-            self.to_dict(),
-            sort_keys=True,
-            indent=4,
-            default=self.decimal_default)
+        return self.to_dict()
 
     def __init__(self, object_id, object_type):
-        self.object_id = object_id
+        self.object_id = object_id or uuid.uuid4().hex
         self.object_type = object_type
-
-    # Add the helper function for preventing error from having Decimal in
-    # to_json
-    def decimal_default(self, obj):
-        if isinstance(obj, decimal.Decimal):
-            return float(obj)
-        raise TypeError
 
     def to_dict(self):
         """
         : Returns dictionary for this object.
         """
         return dict(filter(lambda kvp: kvp[1], self.__dict__.items()))
+
+    def to_dynamo(self):
+        return self.to_dict()
 
     def __str__(self):
         return str(self.__dict__)

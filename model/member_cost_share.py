@@ -1,3 +1,4 @@
+import json
 import uuid
 from model.base_dynamo_model import BaseDynamoModel
 from constants.constants import MemberCostShareKeys
@@ -10,10 +11,8 @@ class MemberCostShare(BaseDynamoModel):
 
     @classmethod
     def from_json(cls, json_data):
-        json_data[MemberCostShareKeys.OBJECT_ID] = json_data[JsonMemberCostShareKeys.OBJECT_ID]
-        json_data[MemberCostShareKeys.OBJECT_TYPE] = json_data[JsonMemberCostShareKeys.OBJECT_TYPE]
-        json_data[MemberCostShareKeys.ORG] = json_data[MemberCostShareKeys.ORG]
-        return cls(**json_data)
+        formatted_json = super().from_json(json_data=json_data)
+        return cls(**formatted_json)
 
     @classmethod
     def from_dynamo(cls, dynamo_object):
@@ -34,7 +33,7 @@ class MemberCostShare(BaseDynamoModel):
                  copay=None,
                  org=None):
         self.object_id = object_id or uuid.uuid4().hex
-        self.object_type = object_type
+        self.object_type = MemberCostShare.partition_key
         self.deductible = deductible
         self.copay = copay
         self.org = org
@@ -43,6 +42,15 @@ class MemberCostShare(BaseDynamoModel):
         return {
             MemberCostShareKeys.PARTITION_KEY: self.object_type,
             MemberCostShareKeys.SORT_KEY: self.object_id,
+            MemberCostShareKeys.DEDUCTIBLE: self.deductible,
+            MemberCostShareKeys.COPAY: self.copay,
+            MemberCostShareKeys.ORG: self.org,
+        }
+
+    def to_dict(self):
+        return {
+            MemberCostShareKeys.OBJECT_TYPE: JsonMemberCostShareKeys.OBJECT_TYPE_OUT,
+            MemberCostShareKeys.OBJECT_ID: self.object_id,
             MemberCostShareKeys.DEDUCTIBLE: self.deductible,
             MemberCostShareKeys.COPAY: self.copay,
             MemberCostShareKeys.ORG: self.org,

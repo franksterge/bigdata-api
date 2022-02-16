@@ -68,4 +68,5 @@ class ErrorMessages:
     UNABLE_UPLOAD_IMAGE = 'Unable to upload image. Please try again'
     BOOK_ALREADY_EXISTS = 'This book is already created by someone.'
 
+    BAD_DYNAMO_PAYLOAD = 'The given object is not an instance of BaseDynamoModel'
 

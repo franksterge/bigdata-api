@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from flask_socketio import SocketIO
+from api.plan_api import PLAN_API
 
 socketio = SocketIO()
 
@@ -16,7 +17,7 @@ def create_app():
     socketio.init_app(application)
 
     # register blueprint to app
-    # application.register_blueprint(USER_API, url_prefix='/v1/user')
+    application.register_blueprint(PLAN_API, url_prefix='/v1/plan')
     # application.register_blueprint(BOOK_API, url_prefix='/mybooks')
 
     return application

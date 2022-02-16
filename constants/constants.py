@@ -1,11 +1,14 @@
 class BaseModelKeys:
     OBJECT_ID = 'object_id'
     OBJECT_TYPE = 'object_type'
+    ORG = 'org'
 
 
 class DynamoKeys:
     PARTITION_KEY = 'object_type'
     SORT_KEY = 'object_id'
+    CONTENT = 'Item'
+    BATCH_CONTENTS = 'Items'
 
 
 class MedicalServiceKeys(BaseModelKeys, DynamoKeys):
