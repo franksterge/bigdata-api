@@ -32,6 +32,3 @@ class PlanService:
             self.base_dynamo_service.create_dynamo_data(plan_service.linked_service)
             self.base_dynamo_service.create_dynamo_data(plan_service.plan_service_cost_shares)
             self.base_dynamo_service.create_dynamo_data(plan_service)
-
-
-    # def get_plan(self, plan_id):
