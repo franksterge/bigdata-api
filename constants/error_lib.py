@@ -65,6 +65,8 @@ class ErrorMessages:
     UNABLE_DELETE = 'Unable to delete this file at this time. Please try again.'
     INVALID_FILE = 'This file name is invalid'
     PLAN_NOT_FOUND = 'Given plan not found'
+    SERVICE_NOT_FOUND = 'Given service not found'
+
     UNABLE_UPLOAD_IMAGE = 'Unable to upload image. Please try again'
     BOOK_ALREADY_EXISTS = 'This book is already created by someone.'
 

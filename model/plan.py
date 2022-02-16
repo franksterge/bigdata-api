@@ -39,18 +39,7 @@ class Plan(BaseDynamoModel):
     def from_dynamo(cls, dynamo_object):
         if dynamo_object is None:
             return None
-
-        plan = cls(**dynamo_object)
-
-        plan_cost_shares = dynamo_object[PlanKeys.PLAN_COST_SHARES] \
-            if dynamo_object[PlanKeys.PLAN_COST_SHARES] else None
-        plan.set_plan_cost_shares(plan_cost_shares=plan_cost_shares)
-
-        linked_plan_services = dynamo_object[PlanKeys.LINKED_PLAN_SERVICES] \
-            if dynamo_object[PlanKeys.LINKED_PLAN_SERVICES] else None
-        plan.set_linked_plan_services(linked_plan_services=linked_plan_services)
-
-        return plan
+        return cls(**dynamo_object)
 
     def __init__(self,
                  object_type,
@@ -87,8 +76,8 @@ class Plan(BaseDynamoModel):
             PlanKeys.ORG: self.org,
             PlanKeys.PLAN_TYPE: self.plan_type,
             PlanKeys.CREATION_DATE: self.creation_date,
-            PlanKeys.PLAN_COST_SHARES: self.plan_cost_shares.object_type + ':' + self.plan_cost_shares.object_id,
-            PlanKeys.LINKED_PLAN_SERVICES: [(x.object_type + ':' + x.object_id) for x in self.linked_plan_services],
+            PlanKeys.PLAN_COST_SHARES: self.plan_cost_shares.object_id,
+            PlanKeys.LINKED_PLAN_SERVICES: [x.object_id for x in self.linked_plan_services],
         }
 
     def to_dict(self):

@@ -1,4 +1,4 @@
-from service.plan_service import PlanService
-from storage_service import base_dynamo_service
+from service.plan_functional_service import PlanFunctionalService
+from storage_service import plan_service, plan_service_service, medical_service_service, member_cost_share_service
 
-plan_service = PlanService(base_dynamo_service)
+plan_service = PlanFunctionalService(plan_service, plan_service_service, medical_service_service, member_cost_share_service)

@@ -34,3 +34,4 @@ class PlanKeys(BaseModelKeys, DynamoKeys):
     ORG = 'org'
     PLAN_TYPE = 'plan_type'
     CREATION_DATE = 'creation_date'
+    PLAN_SERVICES_KEY = 'S'

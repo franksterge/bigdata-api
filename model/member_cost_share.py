@@ -18,13 +18,7 @@ class MemberCostShare(BaseDynamoModel):
     def from_dynamo(cls, dynamo_object):
         if dynamo_object is None:
             return None
-        return MemberCostShare(
-            object_type=dynamo_object.get(MemberCostShareKeys.OBJECT_TYPE),
-            object_id=dynamo_object.get(MemberCostShareKeys.OBJECT_ID),
-            deductible=dynamo_object.get(MemberCostShareKeys.DEDUCTIBLE),
-            copay=dynamo_object.get(MemberCostShareKeys.COPAY),
-            org=dynamo_object.get(MemberCostShareKeys.ORG)
-        )
+        return cls(**dynamo_object)
 
     def __init__(self,
                  object_type,

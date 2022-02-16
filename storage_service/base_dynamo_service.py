@@ -37,20 +37,16 @@ class BaseDynamoService:
         self.dynamo_table.put_item(Item=payload_obj.to_dynamo())
         return payload_obj.to_dynamo()
 
-    def delete_dynamo_data(self, payload_obj):
-        if payload_obj is None:
+    def delete_dynamo_data(self, object_type, object_id):
+        if object_type is None or object_id is None:
             raise BackEndException(
                 ErrorMessages.BAD_DATA,
                 ErrorCodes.BAD_REQUEST)
-        if not isinstance(payload_obj, BaseDynamoModel):
-            raise BackEndException(
-                ErrorMessages.BAD_DATA,
-                ErrorCodes.SERVER_ERROR)
 
         self.dynamo_table.delete_item(
             Key={
-                DynamoKeys.PARTITION_KEY: payload_obj.object_type,
-                DynamoKeys.SORT_KEY: payload_obj.object_id
+                DynamoKeys.PARTITION_KEY: object_type,
+                DynamoKeys.SORT_KEY: object_id
             }
         )
 

@@ -17,12 +17,7 @@ class MedicalService(BaseDynamoModel):
     def from_dynamo(cls, dynamo_object):
         if dynamo_object is None:
             return None
-        return MedicalService(
-            object_type=dynamo_object.get(MedicalServiceKeys.OBJECT_TYPE),
-            object_id=dynamo_object.get(MedicalServiceKeys.OBJECT_ID),
-            name=dynamo_object.get(MedicalServiceKeys.NAME),
-            org=dynamo_object.get(MedicalServiceKeys.ORG)
-        )
+        return cls(**dynamo_object)
 
     def __init__(self,
                  object_type,
