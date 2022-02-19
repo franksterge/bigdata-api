@@ -18,7 +18,7 @@ class PlanStorageService(BaseDynamoService):
 
     def get_plan(self, plan_id):
         response = self.get_dynamo_data(Plan.partition_key, plan_id)
-        if response is None:
+        if DynamoKeys.CONTENT not in response.keys():
             raise BackEndException(
                 ErrorMessages.PLAN_NOT_FOUND,
                 ErrorCodes.NOT_FOUND)

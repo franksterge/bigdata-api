@@ -20,6 +20,8 @@ class PlanFunctionalService:
                 ErrorMessages.BAD_DATA,
                 ErrorCodes.BAD_REQUEST)
 
+        # TODO: ADD CHECK FOR IF PLAN ALREADY EXIST (THROW 409 CONFLICT IF YES)
+
         new_plan = Plan.from_json(plan_dict)
         if new_plan.plan_cost_shares:
             self.plan_storage_service.create_dynamo_data(new_plan.plan_cost_shares)
