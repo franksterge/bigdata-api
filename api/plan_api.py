@@ -8,7 +8,6 @@ from service import plan_service
 from util import validation
 from util import etag_cache
 from util.dynamo_util import DecimalEncoder
-from werkzeug.datastructures import ETags
 
 
 PLAN_API = Blueprint('student_profile_api', __name__)
@@ -19,7 +18,7 @@ PLAN_API = Blueprint('student_profile_api', __name__)
 def create_plan(payload):
     new_plan_dict = payload
     new_plan_obj = plan_service.create_plan(new_plan_dict)
-    response = Response(status=ErrorCodes.OK, response=json.dumps(new_plan_obj.to_json()), mimetype='application/json')
+    response = Response(status=ErrorCodes.OK, response=json.dumps(new_plan_obj.to_dict()), mimetype='application/json')
     response.add_etag()
     etag_cache.append(response.get_etag()[0])
     return response
@@ -43,3 +42,12 @@ def get_plan(plan_id):
 def delete_plan(plan_id):
     plan_service.delete_plan(plan_id)
     return Response(status=ErrorCodes.EMPTY_CONTENT)
+
+@PLAN_API.route('/<plan_id>', methods=['PATCH'])
+def patch_plan(plan_id):
+    new_plan_dict = request.get_json()
+    plan_obj = plan_service.patch_plan(plan_id, new_plan_dict)
+    response = Response(status=ErrorCodes.OK, response=json.dumps(plan_obj.to_json(), cls=DecimalEncoder), mimetype='application/json')
+    response.add_etag()
+    etag_cache.append(response.get_etag()[0])
+    return response

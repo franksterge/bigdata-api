@@ -1,10 +1,11 @@
 """
 : functional service for employee plans
 """
+from constants.constants import PlanKeys, BaseModelKeys
 from model.plan import Plan
 from model.plan_service import PlanService
 from constants.error_lib import BackEndException, ErrorCodes, ErrorMessages
-
+from util.patch_util import merge_data
 
 class PlanFunctionalService:
 
@@ -79,3 +80,15 @@ class PlanFunctionalService:
                 ErrorMessages.PLAN_NOT_FOUND,
                 ErrorCodes.NOT_FOUND)
         self.plan_storage_service.delete_dynamo_data(object_type=Plan.partition_key, object_id=object_id)
+
+    def patch_plan(self, object_id, new_plan_dict):
+        plan = self.get_plan(object_id)
+        if plan is None:
+            raise BackEndException(
+                ErrorMessages.PLAN_NOT_FOUND,
+                ErrorCodes.NOT_FOUND)
+        plan_dict = plan.to_json()
+        plan_dict = merge_data(plan_dict, new_plan_dict)
+
+        plan = self.create_plan(plan_dict)
+        return plan

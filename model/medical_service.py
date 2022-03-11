@@ -39,8 +39,8 @@ class MedicalService(BaseDynamoModel):
 
     def to_dict(self):
         return {
-            MedicalServiceKeys.OBJECT_TYPE: JsonMedicalServiceKeys.OBJECT_TYPE_OUT,
-            MedicalServiceKeys.OBJECT_ID: self.object_id,
-            MedicalServiceKeys.NAME: self.name,
-            MedicalServiceKeys.ORG: self.org,
+            JsonMedicalServiceKeys.OBJECT_TYPE: JsonMedicalServiceKeys.OBJECT_TYPE_OUT,
+            JsonMedicalServiceKeys.OBJECT_ID: self.object_id,
+            JsonMedicalServiceKeys.NAME: self.name,
+            JsonMedicalServiceKeys.ORG: self.org,
         }

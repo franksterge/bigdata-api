@@ -82,11 +82,11 @@ class Plan(BaseDynamoModel):
 
     def to_dict(self):
         return {
-            PlanKeys.OBJECT_TYPE: JsonPlanKeys.OBJECT_TYPE_OUT,
-            PlanKeys.OBJECT_ID: self.object_id,
-            PlanKeys.ORG: self.org,
-            PlanKeys.PLAN_TYPE: self.plan_type,
-            PlanKeys.CREATION_DATE: self.creation_date,
-            PlanKeys.PLAN_COST_SHARES: self.plan_cost_shares.to_dict(),
-            PlanKeys.LINKED_PLAN_SERVICES: [x.to_dict() for x in self.linked_plan_services],
+            JsonPlanKeys.OBJECT_TYPE: JsonPlanKeys.OBJECT_TYPE_OUT,
+            JsonPlanKeys.OBJECT_ID: self.object_id,
+            JsonPlanKeys.ORG: self.org,
+            JsonPlanKeys.PLAN_TYPE: self.plan_type,
+            JsonPlanKeys.CREATION_DATE: self.creation_date,
+            JsonPlanKeys.PLAN_COST_SHARES: self.plan_cost_shares.to_dict(),
+            JsonPlanKeys.LINKED_PLAN_SERVICES: [x.to_dict() for x in self.linked_plan_services],
         }

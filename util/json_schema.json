@@ -59,15 +59,7 @@
             "creationDate": "12-12-2017"
         }
     ],
-    "required": [
-        "planCostShares",
-        "linkedPlanServices",
-        "_org",
-        "objectId",
-        "objectType",
-        "planType",
-        "creationDate"
-    ],
+    "required": ["objectId", "objectType"],
     "properties": {
         "planCostShares": {
             "$id": "#/properties/planCostShares",
@@ -84,13 +76,7 @@
                     "objectType": "membercostshare"
                 }
             ],
-            "required": [
-                "deductible",
-                "_org",
-                "copay",
-                "objectId",
-                "objectType"
-            ],
+            "required": ["objectId", "objectType"],
             "properties": {
                 "deductible": {
                     "$id": "#/properties/planCostShares/properties/deductible",
@@ -221,13 +207,7 @@
                                 "objectType": "planservice"
                             }
                         ],
-                        "required": [
-                            "linkedService",
-                            "planserviceCostShares",
-                            "_org",
-                            "objectId",
-                            "objectType"
-                        ],
+                        "required": ["objectId", "objectType"],
                         "properties": {
                             "linkedService": {
                                 "$id": "#/properties/linkedPlanServices/items/anyOf/0/properties/linkedService",
@@ -243,12 +223,7 @@
                                         "name": "Yearly physical"
                                     }
                                 ],
-                                "required": [
-                                    "_org",
-                                    "objectId",
-                                    "objectType",
-                                    "name"
-                                ],
+                                "required": ["objectId", "objectType"],
                                 "properties": {
                                     "_org": {
                                         "$id": "#/properties/linkedPlanServices/items/anyOf/0/properties/linkedService/properties/_org",
@@ -308,13 +283,7 @@
                                         "objectType": "membercostshare"
                                     }
                                 ],
-                                "required": [
-                                    "deductible",
-                                    "_org",
-                                    "copay",
-                                    "objectId",
-                                    "objectType"
-                                ],
+                                "required": ["objectId", "objectType"],
                                 "properties": {
                                     "deductible": {
                                         "$id": "#/properties/linkedPlanServices/items/anyOf/0/properties/planserviceCostShares/properties/deductible",

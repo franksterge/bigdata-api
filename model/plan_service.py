@@ -72,9 +72,9 @@ class PlanService(BaseDynamoModel) :
 
     def to_dict(self):
         return {
-            PlanServiceKeys.OBJECT_TYPE: JsonPlanServiceKeys.OBJECT_TYPE_OUT,
-            PlanServiceKeys.OBJECT_ID: self.object_id,
-            PlanServiceKeys.ORG: self.org,
-            PlanServiceKeys.LINKED_SERVICE: self.linked_service.to_dict(),
-            PlanServiceKeys.PLAN_SERVICE_COST_SHARES: self.plan_service_cost_shares.to_dict(),
+            JsonPlanServiceKeys.OBJECT_TYPE: JsonPlanServiceKeys.OBJECT_TYPE_OUT,
+            JsonPlanServiceKeys.OBJECT_ID: self.object_id,
+            JsonPlanServiceKeys.ORG: self.org,
+            JsonPlanServiceKeys.LINKED_SERVICE: self.linked_service.to_dict(),
+            JsonPlanServiceKeys.PLAN_SERVICE_COST_SHARES: self.plan_service_cost_shares.to_dict(),
         }

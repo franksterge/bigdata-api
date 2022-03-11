@@ -34,7 +34,7 @@ class BaseDynamoService:
                 ErrorMessages.BAD_DATA,
                 ErrorCodes.SERVER_ERROR)
 
-        self.dynamo_table.put_item(Item=payload_obj.to_dynamo())
+        self.write_dynamo_data(payload_obj.to_dynamo())
         return payload_obj.to_dynamo()
 
     def delete_dynamo_data(self, object_type, object_id):
@@ -61,3 +61,6 @@ class BaseDynamoService:
 
     def get_batch_writer(self):
         return self.dynamo_table.batch_writer()
+
+    def write_dynamo_data(self, payload_dict):
+        self.dynamo_table.put_item(Item=payload_dict)

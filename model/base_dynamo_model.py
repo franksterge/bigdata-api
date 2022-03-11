@@ -1,8 +1,6 @@
 """
 : Base Dynamo model.
 """
-import json
-import decimal
 import uuid
 from constants.json_constants import JsonBaseModelKeys
 from constants.constants import BaseModelKeys
@@ -14,7 +12,6 @@ class BaseDynamoModel:
     def from_json(cls, json_data):
         """
         : Converts json dictionary to BaseDynamoModel.
-        : TODO: CHANGE BEHAVIOR OF OBJECT_TYPE
         """
         json_data[BaseModelKeys.OBJECT_ID] = json_data[JsonBaseModelKeys.OBJECT_ID]
         json_data[BaseModelKeys.OBJECT_TYPE] = json_data[JsonBaseModelKeys.OBJECT_TYPE]

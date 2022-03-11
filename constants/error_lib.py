@@ -68,6 +68,7 @@ class ErrorMessages:
 
     UNABLE_DELETE = 'Unable to delete this file at this time. Please try again.'
     INVALID_FILE = 'This file name is invalid'
+    RESOURCE_NOT_FOUND = 'Given resource not found'
     PLAN_NOT_FOUND = 'Given plan not found'
     SERVICE_NOT_FOUND = 'Given service not found'
     MEMBER_COST_SHARE_NOT_FOND = 'Given member cost share not found'

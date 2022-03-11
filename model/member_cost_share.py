@@ -43,9 +43,9 @@ class MemberCostShare(BaseDynamoModel):
 
     def to_dict(self):
         return {
-            MemberCostShareKeys.OBJECT_TYPE: JsonMemberCostShareKeys.OBJECT_TYPE_OUT,
-            MemberCostShareKeys.OBJECT_ID: self.object_id,
-            MemberCostShareKeys.DEDUCTIBLE: self.deductible,
-            MemberCostShareKeys.COPAY: self.copay,
-            MemberCostShareKeys.ORG: self.org,
+            JsonMemberCostShareKeys.OBJECT_TYPE: JsonMemberCostShareKeys.OBJECT_TYPE_OUT,
+            JsonMemberCostShareKeys.OBJECT_ID: self.object_id,
+            JsonMemberCostShareKeys.DEDUCTIBLE: self.deductible,
+            JsonMemberCostShareKeys.COPAY: self.copay,
+            JsonMemberCostShareKeys.ORG: self.org,
         }
