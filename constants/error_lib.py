@@ -39,6 +39,7 @@ class ErrorCodes:
     FORBIDDEN = 403
     NOT_FOUND = 404
     CONFLICTED = 409
+    PRECONDITION_FAILED = 412
     SERVER_ERROR = 500
 
 

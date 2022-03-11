@@ -22,8 +22,7 @@ def validate_payload(func):
         except:
             raise BackEndException(
                 ErrorMessages.VALIDATION_FAILED,
-                ErrorCodes.BAD_REQUEST
-            )
+                ErrorCodes.BAD_REQUEST)
 
         return func(payload)
     return wrapper
