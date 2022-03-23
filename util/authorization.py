@@ -19,15 +19,16 @@ def verify_user(func):
             raise BackEndException(
                 ErrorMessages.JWT_MISSING,
                 ErrorCodes.UNAUTHORIZED)
-        signing_key = get_signing_key(auth_token)
         try:
+            signing_key = get_signing_key(auth_token)
+
             jwt.decode(
                 auth_token,
                 signing_key.key,
                 algorithms=[JWT_CONSTANTS.ALG],
                 audience=JWT_CONSTANTS.AUD,
                 verify_exp=True)
-        except:
+        except Exception:
             raise BackEndException(
                 ErrorMessages.USER_NOT_AUTHORIZED,
                 ErrorCodes.UNAUTHORIZED)
