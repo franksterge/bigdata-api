@@ -49,3 +49,13 @@ class MemberCostShare(BaseDynamoModel):
             JsonMemberCostShareKeys.COPAY: self.copay,
             JsonMemberCostShareKeys.ORG: self.org,
         }
+
+    def to_index(self, parent_attribute, parent_id):
+        return {
+            JsonMemberCostShareKeys.OBJECT_TYPE: JsonMemberCostShareKeys.OBJECT_TYPE_OUT,
+            JsonMemberCostShareKeys.OBJECT_ID: self.object_id,
+            JsonMemberCostShareKeys.DEDUCTIBLE: self.deductible,
+            JsonMemberCostShareKeys.COPAY: self.copay,
+            JsonMemberCostShareKeys.ORG: self.org,
+            MemberCostShareKeys.PLAN_JOIN: MemberCostShare.get_child_index(parent_attribute, parent_id)
+        }

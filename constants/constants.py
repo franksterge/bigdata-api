@@ -2,6 +2,9 @@ class BaseModelKeys:
     OBJECT_ID = 'object_id'
     OBJECT_TYPE = 'object_type'
     ORG = 'org'
+    PLAN_JOIN = 'plan_join'
+    PLAN_JOIN_NAME = 'name'
+    PLAN_JOIN_PARENT = 'parent'
 
 
 class DynamoKeys:
@@ -35,3 +38,10 @@ class PlanKeys(BaseModelKeys, DynamoKeys):
     PLAN_TYPE = 'plan_type'
     CREATION_DATE = 'creation_date'
     PLAN_SERVICES_KEY = 'S'
+
+
+class ElasticsearchSettings:
+    HOST = 'localhost'
+    PORT = 9200
+    SCHEME = 'https'
+    DOCKER_HOST = 'host.docker.internal'

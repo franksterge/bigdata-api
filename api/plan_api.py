@@ -7,6 +7,7 @@ from constants.error_lib import BackEndException, ErrorMessages, ErrorCodes
 from service import plan_service
 from util import validation, etag_cache, authorization
 from util.dynamo_util import DecimalEncoder
+from util.elasticsearch_util import es_connection
 
 
 PLAN_API = Blueprint('student_profile_api', __name__)
@@ -24,6 +25,7 @@ def create_plan(payload):
 
     new_plan_dict = payload
     new_plan_obj = plan_service.create_plan(new_plan_dict)
+
     response = Response(status=ErrorCodes.OK, response=json.dumps(new_plan_obj.to_dict()), mimetype='application/json')
     response.add_etag()
     etag_cache.append(response.get_etag()[0])

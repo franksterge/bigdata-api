@@ -90,3 +90,14 @@ class Plan(BaseDynamoModel):
             JsonPlanKeys.PLAN_COST_SHARES: self.plan_cost_shares.to_dict(),
             JsonPlanKeys.LINKED_PLAN_SERVICES: [x.to_dict() for x in self.linked_plan_services],
         }
+
+    def to_index(self):
+        return {
+            JsonPlanKeys.OBJECT_TYPE: JsonPlanKeys.OBJECT_TYPE_OUT,
+            JsonPlanKeys.OBJECT_ID: self.object_id,
+            JsonPlanKeys.ORG: self.org,
+            JsonPlanKeys.PLAN_TYPE: self.plan_type,
+            JsonPlanKeys.CREATION_DATE: self.creation_date,
+            PlanKeys.PLAN_COST_SHARES: self.plan_cost_shares.object_id,
+            PlanKeys.PLAN_JOIN: self.object_type
+        }

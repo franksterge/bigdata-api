@@ -78,4 +78,4 @@ class ErrorMessages:
     BOOK_ALREADY_EXISTS = 'This book is already created by someone.'
 
     BAD_DYNAMO_PAYLOAD = 'The given object is not an instance of BaseDynamoModel'
-
+    BAD_ELASTICSEARCH_CONNECTION = 'The connection was not successful'

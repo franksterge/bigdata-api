@@ -41,6 +41,13 @@ class BaseDynamoModel:
     def to_dynamo(self):
         return self.to_dict()
 
+    @staticmethod
+    def get_child_index(parent_attribute, parent_id):
+        return {
+                BaseModelKeys.PLAN_JOIN_NAME: parent_attribute,
+                BaseModelKeys.PLAN_JOIN_PARENT: parent_id
+        }
+
     def __str__(self):
         return str(self.__dict__)
 

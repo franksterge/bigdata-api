@@ -1,11 +1,12 @@
 """
 : functional service for employee plans
 """
-from constants.constants import PlanKeys, BaseModelKeys
+from constants.json_constants import JsonPlanKeys, JsonPlanServiceKeys
 from model.plan import Plan
 from model.plan_service import PlanService
 from constants.error_lib import BackEndException, ErrorCodes, ErrorMessages
 from util.patch_util import merge_data
+from util.elasticsearch_util import process_es_data
 
 class PlanFunctionalService:
 
@@ -24,18 +25,33 @@ class PlanFunctionalService:
         # TODO: ADD CHECK FOR IF PLAN ALREADY EXIST (THROW 409 CONFLICT IF YES)
 
         new_plan = Plan.from_json(plan_dict)
+        new_plan_index = new_plan.to_index()
+        process_es_data(index_data=new_plan_index)
+
         if new_plan.plan_cost_shares:
             self.plan_storage_service.create_dynamo_data(new_plan.plan_cost_shares)
+            plan_cost_share_index = new_plan.plan_cost_shares.to_index(parent_attribute=JsonPlanKeys.PLAN_COST_SHARES,
+                                                                       parent_id=new_plan.object_id)
+            process_es_data(index_data=plan_cost_share_index, routing=new_plan.object_id)
         if new_plan.linked_plan_services:
-            self.create_linked_plan_services(new_plan.linked_plan_services)
+            self.create_linked_plan_services(plan_services=new_plan.linked_plan_services, routing_id=new_plan.object_id)
             self.plan_storage_service.batch_write_data(new_plan.linked_plan_services)
 
         self.plan_storage_service.create_dynamo_data(new_plan)
         return new_plan
 
-
-    def create_linked_plan_services(self, plan_services):
+    def create_linked_plan_services(self, plan_services, routing_id):
         for plan_service in plan_services:
+            plan_service_index = plan_service.to_index(parent_attribute=JsonPlanKeys.LINKED_PLAN_SERVICES,
+                                                       parent_id=routing_id)
+            linked_service_index = plan_service.linked_service.to_index(parent_attribute=JsonPlanServiceKeys.LINKED_SERVICE,
+                                                                        parent_id=plan_service.object_id)
+            plan_cost_share_index = plan_service.plan_service_cost_shares.to_index(
+                parent_attribute=JsonPlanServiceKeys.PLAN_SERVICE_COST_SHARES,
+                parent_id=plan_service.object_id)
+            process_es_data(index_data=plan_service_index, routing=routing_id)
+            process_es_data(index_data=linked_service_index, routing=routing_id)
+            process_es_data(index_data=plan_cost_share_index, routing=routing_id)
             self.plan_storage_service.create_dynamo_data(plan_service.linked_service)
             self.plan_storage_service.create_dynamo_data(plan_service.plan_service_cost_shares)
             self.plan_storage_service.create_dynamo_data(plan_service)

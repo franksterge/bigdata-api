@@ -8,8 +8,8 @@ from model.member_cost_share import MemberCostShare
 from constants.constants import PlanServiceKeys
 from constants.json_constants import JsonPlanServiceKeys
 
-class PlanService(BaseDynamoModel) :
 
+class PlanService(BaseDynamoModel):
     partition_key = 'plan_service'
 
     @classmethod
@@ -27,7 +27,6 @@ class PlanService(BaseDynamoModel) :
             del formatted_json[JsonPlanServiceKeys.PLAN_SERVICE_COST_SHARES]
 
         plan_service = cls(**formatted_json)
-
 
         plan_service.set_linked_service(linked_service=linked_service)
         plan_service.set_plan_service_cost_shares(plan_service_cost_shares=service_cost_share)
@@ -77,4 +76,12 @@ class PlanService(BaseDynamoModel) :
             JsonPlanServiceKeys.ORG: self.org,
             JsonPlanServiceKeys.LINKED_SERVICE: self.linked_service.to_dict(),
             JsonPlanServiceKeys.PLAN_SERVICE_COST_SHARES: self.plan_service_cost_shares.to_dict(),
+        }
+
+    def to_index(self, parent_attribute, parent_id):
+        return {
+            JsonPlanServiceKeys.OBJECT_TYPE: JsonPlanServiceKeys.OBJECT_TYPE_OUT,
+            JsonPlanServiceKeys.OBJECT_ID: self.object_id,
+            JsonPlanServiceKeys.ORG: self.org,
+            PlanServiceKeys.PLAN_JOIN: PlanService.get_child_index(parent_attribute, parent_id)
         }

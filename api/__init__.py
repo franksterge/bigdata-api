@@ -18,6 +18,5 @@ def create_app():
 
     # register blueprint to app
     application.register_blueprint(PLAN_API, url_prefix='/v1/plan')
-    # application.register_blueprint(BOOK_API, url_prefix='/mybooks')
 
     return application

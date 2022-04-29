@@ -44,3 +44,13 @@ class MedicalService(BaseDynamoModel):
             JsonMedicalServiceKeys.NAME: self.name,
             JsonMedicalServiceKeys.ORG: self.org,
         }
+
+
+    def to_index(self, parent_attribute, parent_id):
+        return {
+            JsonMedicalServiceKeys.OBJECT_TYPE: JsonMedicalServiceKeys.OBJECT_TYPE_OUT,
+            JsonMedicalServiceKeys.OBJECT_ID: self.object_id,
+            JsonMedicalServiceKeys.NAME: self.name,
+            JsonMedicalServiceKeys.ORG: self.org,
+            MedicalServiceKeys.PLAN_JOIN: MedicalService.get_child_index(parent_attribute, parent_id)
+        }
